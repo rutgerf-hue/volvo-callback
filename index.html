@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Volvo OAuth callback — Homey panel</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  body { font: 14px -apple-system, system-ui, sans-serif; padding: 40px;
+         max-width: 640px; margin: auto; color: #1f2937; line-height: 1.5; }
+  h1 { font-size: 18px; margin: 0 0 6px; }
+  h3 { font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em;
+       color: #6b7280; margin: 18px 0 4px; }
+  code { background: #eef2ff; padding: 8px 10px; border-radius: 6px;
+         font-family: ui-monospace, "SF Mono", monospace; font-size: 12px;
+         word-break: break-all; display: block; user-select: all; }
+  button { margin-top: 6px; padding: 6px 10px; border: 1px solid #cbd5e1;
+           background: #fff; border-radius: 6px; cursor: pointer; }
+  .err { color: #b91c1c; }
+  p { color: #4b5563; }
+</style>
+</head>
+<body>
+<h1>Volvo OAuth callback</h1>
+<p>Personal home-automation integration. Copy the authorisation code below
+and paste it into the auth helper running on your local machine.</p>
+
+<h3>Code</h3>
+<code id="code">(missing)</code>
+<button onclick="copy('code')">Copy code</button>
+
+<h3>State</h3>
+<code id="state">(missing)</code>
+
+<h3>Error (if any)</h3>
+<code id="err" class="err">(none)</code>
+
+<script>
+  const p = new URLSearchParams(location.search);
+  const set = (id, v) => { document.getElementById(id).textContent = v || "(missing)"; };
+  set("code",  p.get("code"));
+  set("state", p.get("state"));
+  const e = p.get("error");
+  set("err", e ? `${e}${p.get("error_description") ? " — " + p.get("error_description") : ""}` : "(none)");
+  function copy(id) {
+    navigator.clipboard.writeText(document.getElementById(id).textContent);
+  }
+</script>
+</body>
+</html>
